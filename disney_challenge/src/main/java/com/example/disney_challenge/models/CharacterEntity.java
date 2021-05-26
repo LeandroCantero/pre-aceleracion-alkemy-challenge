@@ -1,9 +1,9 @@
-package models;
+package com.example.disney_challenge.models;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "character-")
+@Table(name = "characters")
 public class CharacterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,6 @@
-package interfaceServices;
+package com.example.disney_challenge.interfaceServices;
 
-import models.CharacterEntity;
+import com.example.disney_challenge.models.CharacterEntity;
 
 import java.util.List;
 import java.util.Optional;
