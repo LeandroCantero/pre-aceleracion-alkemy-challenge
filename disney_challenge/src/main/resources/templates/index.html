@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Disney</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-4">
+    <a th:href="@{/new}" class="btn btn-primary">New</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>IMAGE</th>
+            <th>AGE</th>
+            <th>WEIGHT</th>
+            <th>HISTORY</th>
+        </tr>
+        </thead>
+        <tbody>
+        <a class="btn btn-warning">Edit</a>
+        <a class="btn btn-danger">Delete</a>
+        <tr th:each="characterEntity:${characters}">
+            <td th:text="${characterEntity.id}">
+            <td>
+            <td th:text="${characterEntity.name}"></td>
+            <td th:text="${characterEntity.image}"></td>
+            <td th:text="${characterEntity.age}"></td>
+            <td th:text="${characterEntity.weight}"></td>
+            <td th:text="${characterEntity.history}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

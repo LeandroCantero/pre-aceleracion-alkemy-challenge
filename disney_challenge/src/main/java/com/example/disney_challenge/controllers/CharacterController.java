@@ -1,9 +1,11 @@
-/*
 package com.example.disney_challenge.controllers;
 
+import com.example.disney_challenge.interfaceServices.InterfaceCharacterServices;
 import com.example.disney_challenge.models.CharacterEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.example.disney_challenge.repositories.CharacterRepository;
 import com.example.disney_challenge.services.CharacterService;
@@ -12,28 +14,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "/user")
+@RequestMapping
 public class CharacterController {
-    @Autowired
-    private CharacterService characterService;
 
     @Autowired
-    private CharacterRepository characterRepository;
+    InterfaceCharacterServices interfaceCharacterServices;
 
-    @GetMapping
-    public ArrayList<CharacterEntity> getCharacters(){
-        return characterService.getCharacters();
+    @GetMapping("/toList")
+    public String toList(Model model){
+        List<CharacterEntity> characters = interfaceCharacterServices.toList();
+        model.addAttribute("characters", characters);
+        return "index";
     }
 
-    @PostMapping(path = "/add")
-    public CharacterEntity saveCharacters(@RequestBody CharacterEntity user){
-        return this.characterService.saveCharacters(user);
+    @GetMapping("/new")
+    public String add(Model model){
+        model.addAttribute("character", new CharacterEntity());
+        return "form";
     }
 
-    @GetMapping(path = "/all")
-    public @ResponseBody
-    List<CharacterEntity> getAllCharacters() {
-        return characterRepository.findAll();
+    @PostMapping("/save")
+    public String save(@Validated CharacterEntity character, Model model){
+        interfaceCharacterServices.save(character);
+        return "redirect:/toList";
     }
+
+
 }
-*/
