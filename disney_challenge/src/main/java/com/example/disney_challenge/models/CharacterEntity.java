@@ -1,6 +1,8 @@
 package com.example.disney_challenge.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "characters")
@@ -14,6 +16,16 @@ public class CharacterEntity {
     private Integer age;
     private Integer weight;
     private String history;
+
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "movie_characters",
+    joinColumns = {
+            @JoinColumn(name = "id_characters", referencedColumnName = "id",
+                    nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "id_movie_or_serie", referencedColumnName = "id",
+                            nullable = false, updatable = false)})
+    private Set<MultimediaEntity> multimedia = new HashSet<>();*/
 
     public CharacterEntity(Long id, String image, String name, Integer age, Integer weight, String history) {
         this.id = id;
@@ -76,11 +88,11 @@ public class CharacterEntity {
         this.history = history;
     }
 
-    /* Imagen.
-○ Nombre.
-○ Edad.
-○ Peso.
-○ Historia.
-○ Películas o series asociadas
-     */
+    /*public Set<MultimediaEntity> getMultimedia() {
+        return multimedia;
+    }
+
+    public void setMultimedia(Set<MultimediaEntity> multimedia) {
+        this.multimedia = multimedia;
+    }*/
 }

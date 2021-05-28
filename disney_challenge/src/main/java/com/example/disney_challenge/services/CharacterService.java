@@ -1,6 +1,5 @@
 package com.example.disney_challenge.services;
 
-import com.example.disney_challenge.interfaceServices.InterfaceCharacterServices;
 import com.example.disney_challenge.models.CharacterEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,33 +11,24 @@ import java.util.Optional;
 
 @Service
 @Repository
-public class CharacterService implements InterfaceCharacterServices {
+public class CharacterService{
 
     @Autowired
     private CharacterRepository characterRepository;
 
-    @Override
-    public List<CharacterEntity> toList() {
-        return (List<CharacterEntity>)characterRepository.findAll();
+    public CharacterEntity create(CharacterEntity characterEntity){
+        return characterRepository.save(characterEntity);
     }
 
-    @Override
-    public Optional<CharacterEntity> toListId(int id) {
-        return Optional.empty();
+    public List<CharacterEntity> getAllCharacters(){
+        return characterRepository.findAll();
     }
 
-    @Override
-    public int save(CharacterEntity characterEntity) {
-        int res=0;
-        CharacterEntity character = characterRepository.save(characterEntity);;
-        if (!character.equals(null)){
-            res=1;
-        }
-        return res;
+    public void delete(CharacterEntity characterEntity){
+        characterRepository.delete(characterEntity);
     }
 
-    @Override
-    public void delete(int id) {
-
+    public Optional<CharacterEntity> findById(Long id){
+        return characterRepository.findById(id);
     }
 }
