@@ -2,19 +2,17 @@ package com.example.disney_challenge.controllers;
 
 import com.example.disney_challenge.models.CharacterEntity;
 import com.example.disney_challenge.services.CharacterService;
+import com.example.disney_challenge.util.CharacterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.net.URI;
-import java.sql.ClientInfoStatus;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/characters")
+@RequestMapping("/api")
 public class CharacterController {
 
     @Autowired
@@ -31,19 +29,19 @@ public class CharacterController {
         }
     }
 
-    @GetMapping("/all")
-    private ResponseEntity <List<CharacterEntity>> listAllCharacters(@RequestBody CharacterEntity characterEntity){
-        return ResponseEntity.ok(characterService.getAllCharacters());
+    @GetMapping("/allCharacters")
+    private List <CharacterEntity> listAllCharacters(@RequestBody CharacterEntity characterEntity){
+        return characterService.getAllCharacters();
     }
 
-    @DeleteMapping
-    private ResponseEntity<Void> deleteCharacter(@RequestBody CharacterEntity characterEntity){
-        characterService.delete(characterEntity);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/characters/delete/{id}")
+    private String deleteCharacter(@PathVariable ("id") Long id){
+        characterService.deleteCharacter(id);
+        return "Delete successfully id =" + id;
     }
 
-    @GetMapping(value = "{id}")
-    private ResponseEntity <Optional<CharacterEntity>> listById(@PathVariable ("id") Long id) {
+    @GetMapping(value = "/characters/{id}")
+    private ResponseEntity<CharacterDTO> listById(@PathVariable ("id") Long id) {
         return ResponseEntity.ok(characterService.findById(id));
     }
 
