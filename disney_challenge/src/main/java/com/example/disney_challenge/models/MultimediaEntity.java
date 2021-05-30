@@ -1,7 +1,10 @@
 package com.example.disney_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,24 +15,28 @@ public class MultimediaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JoinColumn(name = "genre_id")
+    private GenreEntity genre;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "multimedia", cascade = CascadeType.MERGE)
+    @JsonBackReference
+
+    private Set<CharacterEntity> enrolledCharacters = new HashSet<>();
     private String image;
     private String title;
-    private Date date;
+    private LocalDate creation_date;
     private Float rating;
 
-    /*
-    @ManyToMany(mappedBy = "multimedia", fetch = FetchType.LAZY)
-    private Set<CharacterEntity> character = new HashSet<>();
-    */
 
-
-    public MultimediaEntity(Long id, String image, String title, Date date, Float rating, Set<CharacterEntity> character) {
+    public MultimediaEntity(Long id, String image, String title, LocalDate date, Float rating) {
         this.id = id;
         this.image = image;
         this.title = title;
-        this.date = date;
+        this.creation_date = date;
         this.rating = rating;
-        //this.character = character;
     }
 
     public MultimediaEntity() {
@@ -59,12 +66,12 @@ public class MultimediaEntity {
         this.title = title;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDate getCreation_date() {
+        return creation_date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCreation_date(LocalDate date) {
+        this.creation_date = date;
     }
 
     public Float getRating() {
@@ -75,14 +82,16 @@ public class MultimediaEntity {
         this.rating = rating;
     }
 
-   /*
-    public Set<CharacterEntity> getCharacter() {
-        return character;
+    public Set<CharacterEntity> getEnrolledCharacters() {
+        return enrolledCharacters;
     }
 
-    public void setCharacter(Set<CharacterEntity> character) {
-        this.character = character;
+    public void setGenre(GenreEntity genre) {
+        this.genre = genre;
     }
 
-    */
+    public GenreEntity getGenre() {
+        return genre;
+    }
+
 }

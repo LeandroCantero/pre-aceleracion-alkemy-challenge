@@ -1,6 +1,10 @@
 package com.example.disney_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "genres")
@@ -11,6 +15,11 @@ public class GenreEntity {
     private Long id;
     private String image;
     private String name;
+
+
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.MERGE)
+    @JsonBackReference
+    private Set<MultimediaEntity> multimedia;
 
     public GenreEntity(Long id, String image, String name) {
         this.id = id;
@@ -44,5 +53,23 @@ public class GenreEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<MultimediaEntity> getMultimedia() {
+        return multimedia;
+    }
+
+    public void setMultimedia(Set<MultimediaEntity> multimedia) {
+        this.multimedia = multimedia;
+    }
+
+    public void addMultimedia(MultimediaEntity multimediaEntity) {
+        if (multimediaEntity != null) {
+            if (multimedia == null) {
+                multimedia = new HashSet<MultimediaEntity>();
+            }
+            multimediaEntity.setGenre(this);
+            multimedia.add(multimediaEntity);
+        }
     }
 }

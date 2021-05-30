@@ -2,13 +2,14 @@ package com.example.disney_challenge.controllers;
 
 import com.example.disney_challenge.models.CharacterEntity;
 import com.example.disney_challenge.services.CharacterService;
-import com.example.disney_challenge.util.CharacterDTO;
+import com.example.disney_challenge.dtos.CharacterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,8 +31,19 @@ public class CharacterController {
     }
 
     @GetMapping("/allCharacters")
-    private List <CharacterEntity> listAllCharacters(@RequestBody CharacterEntity characterEntity){
-        return characterService.getAllCharacters();
+    public ResponseEntity<List<CharacterEntity>> getAllCharacters(){
+        var characters = characterService.getAllCharacters();
+        return new ResponseEntity(characters, HttpStatus.OK);
+    }
+
+    @GetMapping("/characters")
+    public ResponseEntity<List<CharacterDTO>> getCharacters(){
+        var characters =  characterService.getCharacters();
+        if (characters==null) {
+            return new ResponseEntity(new ArrayList<>(),HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(characters, HttpStatus.OK);
     }
 
     @DeleteMapping("/characters/delete/{id}")

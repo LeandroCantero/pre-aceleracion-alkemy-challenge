@@ -1,7 +1,7 @@
 package com.example.disney_challenge.services;
 
 import com.example.disney_challenge.models.CharacterEntity;
-import com.example.disney_challenge.util.CharacterDTO;
+import com.example.disney_challenge.dtos.CharacterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -9,10 +9,11 @@ import com.example.disney_challenge.repositories.CharacterRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Repository
-public class CharacterService implements CharacterServiceInterface {
+public class CharacterService implements ICharacterService {
 
     @Autowired
     private CharacterRepository characterRepository;
@@ -23,8 +24,17 @@ public class CharacterService implements CharacterServiceInterface {
     }
 
     @Override
-    public List<CharacterEntity> getAllCharacters(){
-        return (List<CharacterEntity>)characterRepository.findAll();
+    public List<CharacterDTO> getCharacters(){
+
+        var charactes = characterRepository.findAll();
+        if (charactes == null) return null;
+
+        var mappedCharacters =  charactes
+                .stream()
+                .map(c -> new CharacterDTO(c.getName(),c.getImage()))
+                .collect(Collectors.toList());
+        return mappedCharacters;
+
     }
 
     @Override
@@ -41,5 +51,15 @@ public class CharacterService implements CharacterServiceInterface {
             characterDTO.setUrl(characterEntity.get().getImage());
         }
         return characterDTO;
+    }
+
+    public List<CharacterEntity> getAllCharacters(){
+        var characters = characterRepository.findAll();
+        if (characters == null){
+            return null;
+        }
+        else{
+            return characters;
+        }
     }
 }

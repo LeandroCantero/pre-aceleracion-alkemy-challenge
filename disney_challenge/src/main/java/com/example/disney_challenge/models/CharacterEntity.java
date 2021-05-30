@@ -1,5 +1,9 @@
 package com.example.disney_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.jmx.export.annotation.ManagedNotification;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,21 +15,24 @@ public class CharacterEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "movie_characters",
+            joinColumns = @JoinColumn(name = "character_id", nullable=false),
+            inverseJoinColumns = @JoinColumn(name = "multimedia_id")
+    )
+    @JsonManagedReference
+
+    private Set<MultimediaEntity> multimedia = new HashSet<>();
+
     private String image;
     private String name;
     private Integer age;
     private Integer weight;
     private String history;
 
-    /*@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "movie_characters",
-    joinColumns = {
-            @JoinColumn(name = "id_characters", referencedColumnName = "id",
-                    nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "id_movie_or_serie", referencedColumnName = "id",
-                            nullable = false, updatable = false)})
-    private Set<MultimediaEntity> multimedia = new HashSet<>();*/
+
 
     public CharacterEntity(Long id, String image, String name, Integer age, Integer weight, String history) {
         this.id = id;
@@ -88,11 +95,11 @@ public class CharacterEntity {
         this.history = history;
     }
 
-    /*public Set<MultimediaEntity> getMultimedia() {
-        return multimedia;
+    public void addMultimedia(MultimediaEntity multimedia) {
+        this.multimedia.add(multimedia);
     }
 
-    public void setMultimedia(Set<MultimediaEntity> multimedia) {
-        this.multimedia = multimedia;
-    }*/
+    public Set<MultimediaEntity> getMultimedia() {
+        return multimedia;
+    }
 }
