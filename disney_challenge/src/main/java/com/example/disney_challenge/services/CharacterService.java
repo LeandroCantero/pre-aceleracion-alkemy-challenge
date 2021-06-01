@@ -62,4 +62,25 @@ public class CharacterService implements ICharacterService {
             return characters;
         }
     }
+
+    @Override
+    public void updateCharacter(Long id, CharacterEntity characterEntity) {
+        var characters = characterRepository.findAll();
+        var mappedCharacters = characters
+                .stream()
+                .map(c ->
+                {
+                    if (c.getId() == characterEntity.getId()) {
+                        c.setName(characterEntity.getName());
+                        c.setImage(characterEntity.getImage());
+                        c.setWeight(characterEntity.getWeight());
+                        c.setHistory(characterEntity.getHistory());
+                        c.setAge(characterEntity.getAge());
+                    }
+                    else {
+                        c = null;
+                    }
+                    return c;
+                }).collect(Collectors.toList());
+    }
 }

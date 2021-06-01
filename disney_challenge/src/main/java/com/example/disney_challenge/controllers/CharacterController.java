@@ -6,11 +6,13 @@ import com.example.disney_challenge.dtos.CharacterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -20,7 +22,7 @@ public class CharacterController {
     private CharacterService characterService;
 
     @PostMapping
-    private ResponseEntity <CharacterEntity> save(@RequestBody CharacterEntity characterEntity){
+    public ResponseEntity <CharacterEntity> save(@RequestBody CharacterEntity characterEntity){
         CharacterEntity characterEntity1 = characterService.create(characterEntity);
 
         try{
@@ -47,14 +49,19 @@ public class CharacterController {
     }
 
     @DeleteMapping("/characters/delete/{id}")
-    private String deleteCharacter(@PathVariable ("id") Long id){
+    public String deleteCharacter(@PathVariable ("id") Long id){
         characterService.deleteCharacter(id);
         return "Delete successfully id =" + id;
     }
 
     @GetMapping(value = "/characters/{id}")
-    private ResponseEntity<CharacterDTO> listById(@PathVariable ("id") Long id) {
+    public ResponseEntity<CharacterDTO> listById(@PathVariable ("id") Long id) {
         return ResponseEntity.ok(characterService.findById(id));
     }
 
+    @PutMapping(value = "/characters/{id}")
+    public ResponseEntity<CharacterEntity> updateCharacter(@PathVariable ("id") Long id, @RequestBody CharacterEntity character){
+        this.characterService.updateCharacter(id, character);
+        return ResponseEntity.ok(character);
+    }
 }

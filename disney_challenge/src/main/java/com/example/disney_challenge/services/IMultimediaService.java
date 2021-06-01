@@ -10,4 +10,5 @@ public interface IMultimediaService {
     MultimediaDTO findById(Long id);
     MultimediaEntity create(MultimediaEntity multimediaEntity);
     void deleteMultimedia(Long id);
+    void updateMultimedia(Long id, MultimediaEntity multimedia);
 }

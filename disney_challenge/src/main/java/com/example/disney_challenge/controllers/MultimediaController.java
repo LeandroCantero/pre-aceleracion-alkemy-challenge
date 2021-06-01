@@ -20,7 +20,7 @@ public class MultimediaController {
     MultimediaService multimediaService;
 
     @PostMapping
-    private ResponseEntity<MultimediaEntity> save(@RequestBody MultimediaEntity multimediaEntity){
+    public ResponseEntity<MultimediaEntity> save(@RequestBody MultimediaEntity multimediaEntity){
         MultimediaEntity multimediaEntity1 = multimediaService.create(multimediaEntity);
 
         try{
@@ -46,14 +46,20 @@ public class MultimediaController {
     }
 
     @DeleteMapping("/multimedia/delete/id")
-    private String deleteMultimedia(@PathVariable ("id") Long id){
+    public String deleteMultimedia(@PathVariable ("id") Long id){
         multimediaService.deleteMultimedia(id);
         return "Delete successfully id =" + id;
     }
 
     @GetMapping(value = "/multimedia/{id}")
-    private ResponseEntity<MultimediaDTO> listById(@PathVariable ("id") Long id){
+    public ResponseEntity<MultimediaDTO> listById(@PathVariable ("id") Long id){
         return ResponseEntity.ok(multimediaService.findById(id));
+    }
+
+    @PutMapping(value = "/multimedia/{id}")
+    public ResponseEntity<MultimediaEntity> updateMultimedia(@PathVariable ("id") Long id, @RequestBody MultimediaEntity multimediaEntity){
+        this.multimediaService.updateMultimedia(id, multimediaEntity);
+        return ResponseEntity.ok(multimediaEntity);
     }
 
 

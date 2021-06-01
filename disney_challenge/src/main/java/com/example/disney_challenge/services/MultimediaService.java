@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class MultimediaService implements IMultimediaService{
 
     @Autowired
-    MultimediaRepository multimediaRepository;
+    private MultimediaRepository multimediaRepository;
 
     @Override
     public List<MultimediaDTO> getMultimedia() {
@@ -60,5 +60,26 @@ public class MultimediaService implements IMultimediaService{
         else{
             return multimedia;
         }
+    }
+
+    @Override
+    public void updateMultimedia(Long id, MultimediaEntity multimediaEntity) {
+        var multimedias = multimediaRepository.findAll();
+        var mappedMultimedia = multimedias
+                .stream()
+                .map(m -> {
+                    if (m.getId() == multimediaEntity.getId()) {
+                        m.setTitle(multimediaEntity.getTitle());
+                        m.setGenre(multimediaEntity.getGenre());
+                        m.setRating(multimediaEntity.getRating());
+                        m.setImage(multimediaEntity.getImage());
+                        m.setCreation_date(multimediaEntity.getCreation_date());
+
+                    }
+                    else{
+                        m = null;
+                    }
+                    return m;
+                }).collect(Collectors.toList());
     }
 }
