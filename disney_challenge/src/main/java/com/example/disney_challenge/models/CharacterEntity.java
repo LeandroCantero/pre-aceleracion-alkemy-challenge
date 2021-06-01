@@ -1,6 +1,7 @@
 package com.example.disney_challenge.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.jmx.export.annotation.ManagedNotification;
 
@@ -22,7 +23,7 @@ public class CharacterEntity {
             joinColumns = @JoinColumn(name = "character_id", nullable=false),
             inverseJoinColumns = @JoinColumn(name = "multimedia_id", nullable = false)
     )
-    @JsonManagedReference
+    @JsonIgnoreProperties("characters")
 
     private Set<MultimediaEntity> multimedia = new HashSet<>();
 

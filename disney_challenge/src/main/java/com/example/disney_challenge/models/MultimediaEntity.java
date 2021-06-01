@@ -1,6 +1,7 @@
 package com.example.disney_challenge.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -21,8 +22,8 @@ public class MultimediaEntity {
     @JoinColumn(name = "genre_id")
     private GenreEntity genre;
 
-    @ManyToMany(mappedBy = "multimedia", cascade = CascadeType.MERGE)
-    @JsonBackReference
+    @ManyToMany(mappedBy = "multimedia",fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties("multimedia")
     private Set<CharacterEntity> characters = new HashSet<>();
 
     private String image;
