@@ -21,10 +21,10 @@ public class MultimediaEntity {
     @JoinColumn(name = "genre_id")
     private GenreEntity genre;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "multimedia", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy = "multimedia", cascade = CascadeType.MERGE)
     @JsonBackReference
+    private Set<CharacterEntity> characters = new HashSet<>();
 
-    private Set<CharacterEntity> enrolledCharacters = new HashSet<>();
     private String image;
     private String title;
     private LocalDate creation_date;
@@ -82,8 +82,8 @@ public class MultimediaEntity {
         this.rating = rating;
     }
 
-    public Set<CharacterEntity> getEnrolledCharacters() {
-        return enrolledCharacters;
+    public Set<CharacterEntity> getCharacters() {
+        return characters;
     }
 
     public void setGenre(GenreEntity genre) {

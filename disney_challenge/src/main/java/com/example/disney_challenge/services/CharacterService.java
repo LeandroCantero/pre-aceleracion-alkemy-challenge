@@ -53,7 +53,7 @@ public class CharacterService implements ICharacterService {
         return characterDTO;
     }
 
-    public List<CharacterEntity> getAllCharacters(){
+    public List<CharacterEntity> characterDetails(){
         var characters = characterRepository.findAll();
         if (characters == null){
             return null;

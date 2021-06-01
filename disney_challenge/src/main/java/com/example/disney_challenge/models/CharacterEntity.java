@@ -20,7 +20,7 @@ public class CharacterEntity {
     @JoinTable(
             name = "movie_characters",
             joinColumns = @JoinColumn(name = "character_id", nullable=false),
-            inverseJoinColumns = @JoinColumn(name = "multimedia_id")
+            inverseJoinColumns = @JoinColumn(name = "multimedia_id", nullable = false)
     )
     @JsonManagedReference
 

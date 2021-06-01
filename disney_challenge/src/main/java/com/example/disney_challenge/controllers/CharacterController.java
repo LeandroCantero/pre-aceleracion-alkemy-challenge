@@ -30,9 +30,9 @@ public class CharacterController {
         }
     }
 
-    @GetMapping("/allCharacters")
-    public ResponseEntity<List<CharacterEntity>> getAllCharacters(){
-        var characters = characterService.getAllCharacters();
+    @GetMapping("/characters/details")
+    public ResponseEntity<List<CharacterEntity>> charactersDetails(){
+        var characters = characterService.characterDetails();
         return new ResponseEntity(characters, HttpStatus.OK);
     }
 
