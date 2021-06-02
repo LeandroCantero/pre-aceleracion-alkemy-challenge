@@ -10,5 +10,5 @@ public interface ICharacterService {
     public CharacterDTO findById(Long id);
     public CharacterEntity create(CharacterEntity characterEntity);
     public void deleteCharacter(Long id);
-    void updateCharacter(Long id, CharacterEntity characterEntity);
+    CharacterEntity updateCharacter(Long id, CharacterEntity characterEntity);
 }

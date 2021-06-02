@@ -64,23 +64,21 @@ public class CharacterService implements ICharacterService {
     }
 
     @Override
-    public void updateCharacter(Long id, CharacterEntity characterEntity) {
-        var characters = characterRepository.findAll();
-        var mappedCharacters = characters
-                .stream()
-                .map(c ->
-                {
-                    if (c.getId() == characterEntity.getId()) {
-                        c.setName(characterEntity.getName());
-                        c.setImage(characterEntity.getImage());
-                        c.setWeight(characterEntity.getWeight());
-                        c.setHistory(characterEntity.getHistory());
-                        c.setAge(characterEntity.getAge());
-                    }
-                    else {
-                        c = null;
-                    }
-                    return c;
-                }).collect(Collectors.toList());
+    public CharacterEntity updateCharacter(Long id, CharacterEntity characterEntity) {
+        var character = characterRepository.findById(id);
+        var ch = character.get();
+        if (character.isPresent()) {
+            String name = characterEntity.getName() == null ? ch.getName() : characterEntity.getName();
+            Integer age = characterEntity.getAge() == null ? ch.getAge() : characterEntity.getAge();
+            String history = characterEntity.getHistory() == null ? ch.getHistory() : characterEntity.getHistory();
+            Integer weight = characterEntity.getWeight() == null ? ch.getWeight() : characterEntity.getWeight();
+            String image = characterEntity.getImage() == null ? ch.getImage() : characterEntity.getImage();
+            ch.setName(name);
+            ch.setAge(age);
+            ch.setHistory(history);
+            ch.setWeight(weight);
+            ch.setImage(image);
+        }
+        return characterRepository.save(ch);
     }
 }

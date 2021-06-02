@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api2")
+@RequestMapping("/api")
 public class MultimediaController {
 
     @Autowired
@@ -58,8 +58,7 @@ public class MultimediaController {
 
     @PutMapping(value = "/multimedia/{id}")
     public ResponseEntity<MultimediaEntity> updateMultimedia(@PathVariable ("id") Long id, @RequestBody MultimediaEntity multimediaEntity){
-        this.multimediaService.updateMultimedia(id, multimediaEntity);
-        return ResponseEntity.ok(multimediaEntity);
+        return ResponseEntity.ok(multimediaService.updateMultimedia(id, multimediaEntity));
     }
 
 

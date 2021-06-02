@@ -52,5 +52,16 @@ class DisneyChallengeApplicationTests {
 
 	}
 
+	@Test
+	void update(){
+		var character = characterRepository.findById(1L);
+		if (character.isPresent()){
+			var ch = character.get();
+			ch.setName("Goofy");
+			characterRepository.save(ch);
+		}
+
+	}
+
 
 }

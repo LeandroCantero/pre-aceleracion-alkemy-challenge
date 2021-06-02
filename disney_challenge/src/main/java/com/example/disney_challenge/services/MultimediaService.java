@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,23 +64,19 @@ public class MultimediaService implements IMultimediaService{
     }
 
     @Override
-    public void updateMultimedia(Long id, MultimediaEntity multimediaEntity) {
-        var multimedias = multimediaRepository.findAll();
-        var mappedMultimedia = multimedias
-                .stream()
-                .map(m -> {
-                    if (m.getId() == multimediaEntity.getId()) {
-                        m.setTitle(multimediaEntity.getTitle());
-                        m.setGenre(multimediaEntity.getGenre());
-                        m.setRating(multimediaEntity.getRating());
-                        m.setImage(multimediaEntity.getImage());
-                        m.setCreation_date(multimediaEntity.getCreation_date());
-
-                    }
-                    else{
-                        m = null;
-                    }
-                    return m;
-                }).collect(Collectors.toList());
+    public MultimediaEntity updateMultimedia(Long id, MultimediaEntity multimediaEntity) {
+        var multimedia = multimediaRepository.findById(id);
+        var multi = multimedia.get();
+        if (multimedia.isPresent()){
+            String title = multimediaEntity.getTitle()==null? multi.getTitle() : multimediaEntity.getTitle();
+            String image = multimediaEntity.getImage()==null? multi.getImage() : multimediaEntity.getImage();
+            LocalDate date = multimediaEntity.getCreation_date()==null? multi.getCreation_date() : multimediaEntity.getCreation_date();
+            Float rating = multimediaEntity.getRating()==null? multi.getRating() : multimediaEntity.getRating();
+            multi.setTitle(title);
+            multi.setImage(image);
+            multi.setCreation_date(date);
+            multi.setRating(rating);
+        }
+        return multimediaRepository.save(multi);
     }
 }
