@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(path = "/api")
 public class MultimediaController {
 
     @Autowired
     MultimediaService multimediaService;
 
-    @PostMapping
+    @PostMapping("/multimedia/save")
     public ResponseEntity<MultimediaEntity> save(@RequestBody MultimediaEntity multimediaEntity){
         MultimediaEntity multimediaEntity1 = multimediaService.create(multimediaEntity);
 

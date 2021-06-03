@@ -6,9 +6,9 @@ import com.example.disney_challenge.dtos.CharacterDTO;
 import java.util.List;
 
 public interface ICharacterService {
-    public List<CharacterDTO> getCharacters();
-    public CharacterDTO findById(Long id);
-    public CharacterEntity create(CharacterEntity characterEntity);
-    public void deleteCharacter(Long id);
+    List<CharacterDTO> getCharacters();
+    CharacterDTO findById(Long id);
+    CharacterEntity create(CharacterEntity characterEntity);
+    void deleteCharacter(Long id);
     CharacterEntity updateCharacter(Long id, CharacterEntity characterEntity);
 }

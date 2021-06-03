@@ -79,4 +79,18 @@ public class MultimediaService implements IMultimediaService{
         }
         return multimediaRepository.save(multi);
     }
+
+    public List<MultimediaEntity> findByTitle(String title){
+        if (title != null){
+            return multimediaRepository.findByTitle(title);
+        }
+        return multimediaRepository.findAll();
+    }
+
+    public List<MultimediaEntity> findByGenre(String genre){
+        if (genre != null){
+            return multimediaRepository.findByGenre(genre);
+        }
+        return multimediaRepository.findAll();
+    }
 }
