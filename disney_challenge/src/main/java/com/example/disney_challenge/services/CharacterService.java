@@ -85,6 +85,14 @@ public class CharacterService implements ICharacterService {
         }
     }
 
+    public List<CharacterEntity> findByFilters(String name, Integer age, Integer weight, MultimediaEntity multimedia){
+        if (name != null){return this.findByName(name);}
+        if (age != null){return this.findByAge(age);}
+        if (weight != null){return this.findByWeight(weight);}
+        if (multimedia != null){return this.findByMultimedia(multimedia);}
+        return characterRepository.findAll();
+    }
+
     public List<CharacterEntity> findByName(String name){
         if (name != null){
             return characterRepository.findByName(name);

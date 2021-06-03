@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -38,13 +39,22 @@ public class CharacterController {
     }
 
     @GetMapping("/characters")
-    public ResponseEntity<List<CharacterDTO>> getCharacters(){
-        var charactersDto =  characterService.getCharacters();
-        if (charactersDto==null) {
-            return new ResponseEntity(new ArrayList<>(),HttpStatus.NOT_FOUND);
+    public ResponseEntity<List<Object>> getCharacters(@RequestParam (required = false) String name,
+                                                       @RequestParam (required = false) Integer age,
+                                                       @RequestParam (required = false) Integer weight,
+                                                       @RequestParam (required = false)MultimediaEntity multimedia){
+        if(name != null || age != null || weight != null || multimedia != null){
+            return ResponseEntity.ok(characterService.findByFilters(name, age, weight, multimedia));
+        }
+        else{
+            var charactersDto =  characterService.getCharacters();
+            if (charactersDto==null) {
+                return new ResponseEntity(new ArrayList<>(),HttpStatus.NOT_FOUND);
+            }
+
+            return new ResponseEntity(charactersDto, HttpStatus.OK);
         }
 
-        return new ResponseEntity(charactersDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/characters/delete/{id}")
@@ -61,20 +71,6 @@ public class CharacterController {
     @PutMapping(value = "/characters/{id}")
     public ResponseEntity<CharacterEntity> updateCharacter(@PathVariable ("id") Long id, @RequestBody CharacterEntity character){
         return ResponseEntity.ok(characterService.updateCharacter(id, character));
-    }
-
-    @GetMapping(value = "/characters")
-    public ResponseEntity<List<CharacterEntity>> filterCharacters(@RequestParam (required = false) String name,
-                                                                  @RequestParam (required = false) Integer age,
-                                                                  @RequestParam (required = false) Integer weight,
-                                                                  @RequestParam (required = false)MultimediaEntity multimedia){
-        var characterList = characterService.characterDetails();
-        if (name != null){characterList = characterService.findByName(name);}
-        if (age != null){characterList = characterService.findByAge(age);}
-        if (weight != null){characterList = characterService.findByWeight(weight);}
-        if (multimedia != null){characterList = characterService.findByMultimedia(multimedia);}
-
-        return ResponseEntity.ok(characterList);
     }
 
 }
