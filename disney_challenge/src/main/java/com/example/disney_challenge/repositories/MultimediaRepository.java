@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MultimediaRepository extends JpaRepository<MultimediaEntity,Long> {
+public interface MultimediaRepository extends JpaRepository<MultimediaEntity, Long> {
     List<MultimediaEntity> findByTitle(String title);
+
     List<MultimediaEntity> findByGenre_Name(String genre);
 }

@@ -21,34 +21,34 @@ public class CharacterService implements ICharacterService {
     private CharacterRepository characterRepository;
 
     @Override
-    public CharacterEntity create(CharacterEntity characterEntity){
+    public CharacterEntity create(CharacterEntity characterEntity) {
         return characterRepository.save(characterEntity);
     }
 
     @Override
-    public List<CharacterDTO> getCharacters(){
+    public List<CharacterDTO> getCharacters() {
 
         var charactes = characterRepository.findAll();
         if (charactes == null) return null;
 
-        var mappedCharacters =  charactes
+        var mappedCharacters = charactes
                 .stream()
-                .map(c -> new CharacterDTO(c.getName(),c.getImage()))
+                .map(c -> new CharacterDTO(c.getName(), c.getImage()))
                 .collect(Collectors.toList());
         return mappedCharacters;
 
     }
 
     @Override
-    public void deleteCharacter(Long id){
+    public void deleteCharacter(Long id) {
         characterRepository.deleteById(id);
     }
 
     @Override
-    public CharacterDTO findById(Long id){
+    public CharacterDTO findById(Long id) {
         Optional<CharacterEntity> characterEntity = characterRepository.findById(id);
         CharacterDTO characterDTO = new CharacterDTO();
-        if (characterEntity != null && characterEntity.isPresent()){
+        if (characterEntity != null && characterEntity.isPresent()) {
             characterDTO.setName(characterEntity.get().getName());
             characterDTO.setUrl(characterEntity.get().getImage());
         }
@@ -75,21 +75,28 @@ public class CharacterService implements ICharacterService {
         return characterRepository.save(ch);
     }
 
-    public List<CharacterEntity> characterDetails(){
+    public List<CharacterEntity> characterDetails() {
         var characters = characterRepository.findAll();
-        if (characters == null){
+        if (characters == null) {
             return null;
-        }
-        else{
+        } else {
             return characters;
         }
     }
 
-    public List<CharacterEntity> findByFilters(String name, Integer age, Integer weight, MultimediaEntity multimedia){
-        if (name != null){return characterRepository.findByName(name);}
-        if (age != null){return characterRepository.findByAge(age);}
-        if (weight != null){return characterRepository.findByWeight(weight);}
-        if (multimedia != null){return characterRepository.findByMultimedia(multimedia);}
+    public List<CharacterEntity> findByFilters(String name, Integer age, Integer weight, MultimediaEntity multimedia) {
+        if (name != null) {
+            return characterRepository.findByName(name);
+        }
+        if (age != null) {
+            return characterRepository.findByAge(age);
+        }
+        if (weight != null) {
+            return characterRepository.findByWeight(weight);
+        }
+        if (multimedia != null) {
+            return characterRepository.findByMultimedia(multimedia);
+        }
         return characterRepository.findAll();
     }
 

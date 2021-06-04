@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Repository
-public class MultimediaService implements IMultimediaService{
+public class MultimediaService implements IMultimediaService {
 
     @Autowired
     private MultimediaRepository multimediaRepository;
@@ -36,7 +36,7 @@ public class MultimediaService implements IMultimediaService{
     public MultimediaDTO findById(Long id) {
         Optional<MultimediaEntity> multimediaEntity = multimediaRepository.findById(id);
         MultimediaDTO multimediaDTO = new MultimediaDTO();
-        if (multimediaEntity != null && multimediaEntity.isPresent()){
+        if (multimediaEntity != null && multimediaEntity.isPresent()) {
             multimediaDTO.setImage(multimediaEntity.get().getImage());
             multimediaDTO.setTitle(multimediaEntity.get().getTitle());
             multimediaDTO.setCreation_date(multimediaEntity.get().getCreation_date());
@@ -54,25 +54,15 @@ public class MultimediaService implements IMultimediaService{
         multimediaRepository.deleteById(id);
     }
 
-    public List<MultimediaEntity> multimediaDetails(){
-        var multimedia = multimediaRepository.findAll();
-        if (multimedia == null){
-            return null;
-        }
-        else{
-            return multimedia;
-        }
-    }
-
     @Override
     public MultimediaEntity updateMultimedia(Long id, MultimediaEntity multimediaEntity) {
         var multimedia = multimediaRepository.findById(id);
         var multi = multimedia.get();
-        if (multimedia.isPresent()){
-            String title = multimediaEntity.getTitle()==null? multi.getTitle() : multimediaEntity.getTitle();
-            String image = multimediaEntity.getImage()==null? multi.getImage() : multimediaEntity.getImage();
-            LocalDate date = multimediaEntity.getCreation_date()==null? multi.getCreation_date() : multimediaEntity.getCreation_date();
-            Float rating = multimediaEntity.getRating()==null? multi.getRating() : multimediaEntity.getRating();
+        if (multimedia.isPresent()) {
+            String title = multimediaEntity.getTitle() == null ? multi.getTitle() : multimediaEntity.getTitle();
+            String image = multimediaEntity.getImage() == null ? multi.getImage() : multimediaEntity.getImage();
+            LocalDate date = multimediaEntity.getCreation_date() == null ? multi.getCreation_date() : multimediaEntity.getCreation_date();
+            Float rating = multimediaEntity.getRating() == null ? multi.getRating() : multimediaEntity.getRating();
             multi.setTitle(title);
             multi.setImage(image);
             multi.setCreation_date(date);
@@ -81,9 +71,22 @@ public class MultimediaService implements IMultimediaService{
         return multimediaRepository.save(multi);
     }
 
-    public List<MultimediaEntity> findByFilters(String title, String genre){
-        if (title != null){return multimediaRepository.findByTitle(title);}
-        if (genre != null){return multimediaRepository.findByGenre_Name(genre);}
+    public List<MultimediaEntity> multimediaDetails() {
+        var multimedia = multimediaRepository.findAll();
+        if (multimedia == null) {
+            return null;
+        } else {
+            return multimedia;
+        }
+    }
+
+    public List<MultimediaEntity> findByFilters(String title, String genre) {
+        if (title != null) {
+            return multimediaRepository.findByTitle(title);
+        }
+        if (genre != null) {
+            return multimediaRepository.findByGenre_Name(genre);
+        }
         return multimediaRepository.findAll();
     }
 }

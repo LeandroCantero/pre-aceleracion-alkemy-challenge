@@ -7,8 +7,12 @@ import java.util.List;
 
 public interface IMultimediaService {
     List<MultimediaDTO> getMultimedia();
+
     MultimediaDTO findById(Long id);
+
     MultimediaEntity create(MultimediaEntity multimediaEntity);
+
     void deleteMultimedia(Long id);
+
     MultimediaEntity updateMultimedia(Long id, MultimediaEntity multimedia);
 }

@@ -11,8 +11,11 @@ import java.util.List;
 @Repository
 public interface CharacterRepository extends JpaRepository<CharacterEntity, Long> {
     List<CharacterEntity> findByName(String name);
+
     List<CharacterEntity> findByAge(Integer age);
+
     List<CharacterEntity> findByWeight(Integer weight);
+
     List<CharacterEntity> findByMultimedia(MultimediaEntity multimedia);
     //List<CharacterEntity> findByNameOrAgeOrWeightOrMultimedia(String name, Integer age, Integer weight, MultimediaEntity multimedia);
 

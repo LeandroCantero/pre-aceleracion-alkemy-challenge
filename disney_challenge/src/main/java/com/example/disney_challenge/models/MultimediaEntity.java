@@ -22,7 +22,7 @@ public class MultimediaEntity {
     @JoinColumn(name = "genre_id")
     private GenreEntity genre;
 
-    @ManyToMany(mappedBy = "multimedia",fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy = "multimedia", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnoreProperties("multimedia")
     private Set<CharacterEntity> characters = new HashSet<>();
 

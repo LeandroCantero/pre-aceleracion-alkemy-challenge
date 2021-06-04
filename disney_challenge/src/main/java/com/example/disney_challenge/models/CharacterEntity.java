@@ -20,7 +20,7 @@ public class CharacterEntity {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "movie_characters",
-            joinColumns = @JoinColumn(name = "character_id", nullable=false),
+            joinColumns = @JoinColumn(name = "character_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "multimedia_id", nullable = false)
     )
     @JsonIgnoreProperties("characters")
@@ -32,7 +32,6 @@ public class CharacterEntity {
     private Integer age;
     private Integer weight;
     private String history;
-
 
 
     public CharacterEntity(Long id, String image, String name, Integer age, Integer weight, String history) {
