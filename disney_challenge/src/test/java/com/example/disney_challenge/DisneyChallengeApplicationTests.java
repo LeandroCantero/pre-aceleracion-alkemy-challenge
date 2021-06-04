@@ -26,22 +26,22 @@ class DisneyChallengeApplicationTests {
 	@Test
 	void createCharacterWithMultimedia() {
 		var character = new CharacterEntity();
-		character.setName("pluto");
-		character.setWeight(30);
-		character.setImage("Pluto.png");
+		character.setName("Goofy");
+		character.setWeight(10);
+		character.setImage("Goofy.png");
 		character.setHistory("Dog from disney...");
-		character.setAge(20);
+		character.setAge(15);
 
 		var genre = new GenreEntity();
-		genre.setName("Drama");
-		genre.setImage("Drama.png");
+		genre.setName("Fantasy");
+		genre.setImage("Fantasy.png");
 
 
 		var multimedia = new MultimediaEntity();
-		multimedia.setTitle("Pluto and his friends");
+		multimedia.setTitle("Goofy is my friend");
 		multimedia.setCreation_date(LocalDate.now());
-		multimedia.setImage("PlutoAndHisFriends.png");
-		multimedia.setRating(1F);
+		multimedia.setImage("Goofy_is_my_friend.png");
+		multimedia.setRating(3F);
 		multimedia.setGenre(genre);
 
 		multimediaRepository.save(multimedia);
@@ -57,7 +57,7 @@ class DisneyChallengeApplicationTests {
 		var character = characterRepository.findById(1L);
 		if (character.isPresent()){
 			var ch = character.get();
-			ch.setName("Goofy");
+			ch.setName("Pluto");
 			characterRepository.save(ch);
 		}
 

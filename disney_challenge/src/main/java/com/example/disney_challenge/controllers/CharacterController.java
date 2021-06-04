@@ -43,18 +43,18 @@ public class CharacterController {
                                                        @RequestParam (required = false) Integer age,
                                                        @RequestParam (required = false) Integer weight,
                                                        @RequestParam (required = false)MultimediaEntity multimedia){
+        List characterList = null;
         if(name != null || age != null || weight != null || multimedia != null){
-            return ResponseEntity.ok(characterService.findByFilters(name, age, weight, multimedia));
+            characterList =  characterService.findByFilters(name, age, weight, multimedia);
         }
         else{
             var charactersDto =  characterService.getCharacters();
             if (charactersDto==null) {
                 return new ResponseEntity(new ArrayList<>(),HttpStatus.NOT_FOUND);
             }
-
-            return new ResponseEntity(charactersDto, HttpStatus.OK);
+            characterList = charactersDto;
         }
-
+        return ResponseEntity.ok(characterList);
     }
 
     @DeleteMapping("/characters/delete/{id}")
