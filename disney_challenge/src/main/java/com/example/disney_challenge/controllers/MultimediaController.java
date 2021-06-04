@@ -37,12 +37,20 @@ public class MultimediaController {
     }
 
     @GetMapping("/multimedia")
-    public ResponseEntity<List<MultimediaDTO>> getMultimedia(){
-        var multimedia = multimediaService.getMultimedia();
-        if (multimedia == null) {
-            return new ResponseEntity(new ArrayList<>(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<List<Object>> getMultimedia(@RequestParam (required = false) String title,
+                                                             @RequestParam (required = false) String genre){
+        List multimediaList = null;
+        if(title != null || genre != null){
+            multimediaList = multimediaService.findByFilters(title, genre);
         }
-        return new ResponseEntity(multimedia, HttpStatus.OK);
+        else{
+            var multimedia = multimediaService.getMultimedia();
+            if (multimedia == null) {
+                return new ResponseEntity(new ArrayList<>(), HttpStatus.NOT_FOUND);
+            }
+            multimediaList = multimedia;
+        }
+        return ResponseEntity.ok(multimediaList);
     }
 
     @DeleteMapping("/multimedia/delete/id")

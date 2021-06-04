@@ -1,6 +1,7 @@
 package com.example.disney_challenge.services;
 
 import com.example.disney_challenge.dtos.MultimediaDTO;
+import com.example.disney_challenge.models.CharacterEntity;
 import com.example.disney_challenge.models.MultimediaEntity;
 import com.example.disney_challenge.repositories.MultimediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,17 +81,9 @@ public class MultimediaService implements IMultimediaService{
         return multimediaRepository.save(multi);
     }
 
-    public List<MultimediaEntity> findByTitle(String title){
-        if (title != null){
-            return multimediaRepository.findByTitle(title);
-        }
-        return multimediaRepository.findAll();
-    }
-
-    public List<MultimediaEntity> findByGenre(String genre){
-        if (genre != null){
-            return multimediaRepository.findByGenre(genre);
-        }
+    public List<MultimediaEntity> findByFilters(String title, String genre){
+        if (title != null){return multimediaRepository.findByTitle(title);}
+        if (genre != null){return multimediaRepository.findByGenre_Name(genre);}
         return multimediaRepository.findAll();
     }
 }

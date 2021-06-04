@@ -86,39 +86,19 @@ public class CharacterService implements ICharacterService {
     }
 
     public List<CharacterEntity> findByFilters(String name, Integer age, Integer weight, MultimediaEntity multimedia){
-        if (name != null){return this.findByName(name);}
-        if (age != null){return this.findByAge(age);}
-        if (weight != null){return this.findByWeight(weight);}
-        if (multimedia != null){return this.findByMultimedia(multimedia);}
+        if (name != null){return characterRepository.findByName(name);}
+        if (age != null){return characterRepository.findByAge(age);}
+        if (weight != null){return characterRepository.findByWeight(weight);}
+        if (multimedia != null){return characterRepository.findByMultimedia(multimedia);}
         return characterRepository.findAll();
     }
 
-    public List<CharacterEntity> findByName(String name){
-        if (name != null){
-            return characterRepository.findByName(name);
+    /*public List<CharacterEntity> findByFilters2(String name, Integer age, Integer weight, MultimediaEntity multimedia){
+        if (name != null || age != null || weight != null || multimedia != null){
+            return characterRepository.findByNameOrAgeOrWeightOrMultimedia(name, age, weight, multimedia);
         }
         return characterRepository.findAll();
     }
+    */
 
-    public List<CharacterEntity> findByMultimedia(MultimediaEntity multimedia){
-        if (multimedia != null){
-            return characterRepository.findByMultimedia(multimedia);
-        }
-        return characterRepository.findAll();
-    }
-
-    public List<CharacterEntity> findByAge(Integer age) {
-        if (age != null){
-            return characterRepository.findByAge(age);
-        }
-        return characterRepository.findAll();
-
-    }
-
-    public List<CharacterEntity> findByWeight(Integer weight) {
-        if (weight != null){
-            return characterRepository.findByWeight(weight);
-        }
-        return characterRepository.findAll();
-    }
 }

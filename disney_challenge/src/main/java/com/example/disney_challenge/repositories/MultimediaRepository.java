@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface MultimediaRepository extends JpaRepository<MultimediaEntity,Long> {
     List<MultimediaEntity> findByTitle(String title);
-    List<MultimediaEntity> findByGenre(String genre);
+    List<MultimediaEntity> findByGenre_Name(String genre);
 }
