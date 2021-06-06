@@ -4,7 +4,6 @@ import com.example.disney_challenge.dtos.MultimediaDTO;
 import com.example.disney_challenge.models.MultimediaEntity;
 import com.example.disney_challenge.services.MultimediaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

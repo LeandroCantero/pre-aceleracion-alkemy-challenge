@@ -1,9 +1,9 @@
 package com.example.disney_challenge.controllers;
 
+import com.example.disney_challenge.dtos.CharacterDTO;
 import com.example.disney_challenge.models.CharacterEntity;
 import com.example.disney_challenge.models.MultimediaEntity;
 import com.example.disney_challenge.services.CharacterService;
-import com.example.disney_challenge.dtos.CharacterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping(path = "/api")

@@ -1,7 +1,7 @@
 package com.example.disney_challenge.services;
 
-import com.example.disney_challenge.models.CharacterEntity;
 import com.example.disney_challenge.dtos.CharacterDTO;
+import com.example.disney_challenge.models.CharacterEntity;
 
 import java.util.List;
 

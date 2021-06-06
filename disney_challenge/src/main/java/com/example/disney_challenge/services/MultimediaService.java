@@ -1,7 +1,6 @@
 package com.example.disney_challenge.services;
 
 import com.example.disney_challenge.dtos.MultimediaDTO;
-import com.example.disney_challenge.models.CharacterEntity;
 import com.example.disney_challenge.models.MultimediaEntity;
 import com.example.disney_challenge.repositories.MultimediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
