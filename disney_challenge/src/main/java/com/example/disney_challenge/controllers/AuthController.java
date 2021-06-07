@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloController {
+public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -34,7 +34,7 @@ public class HelloController {
         return "Hello World";
     }
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest authRequest) throws Exception{
         try{
             authenticationManager.authenticate(

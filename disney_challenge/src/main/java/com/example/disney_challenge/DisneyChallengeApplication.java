@@ -12,9 +12,4 @@ public class DisneyChallengeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DisneyChallengeApplication.class, args);
 	}
-
-	@GetMapping
-	public String hello(){
-		return "Hello world";
-	}
 }
