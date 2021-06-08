@@ -2,10 +2,8 @@ package com.example.disney_challenge.controllers;
 
 import com.example.disney_challenge.auth.AuthRequest;
 import com.example.disney_challenge.auth.AuthResponse;
-import com.example.disney_challenge.services.MyUserDetailsService;
+import com.example.disney_challenge.services.UserService;
 import com.example.disney_challenge.util.JwtUtil;
-import net.bytebuddy.asm.Advice;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,13 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(path = "/api")
 public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    private UserService userDetailsService;
 
     @Autowired
     private JwtUtil jwtTokenUtil;
