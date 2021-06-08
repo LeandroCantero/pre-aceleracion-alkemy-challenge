@@ -14,8 +14,8 @@ import java.util.Collections;
 @Setter
 @Builder
 @EqualsAndHashCode
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "Users")
 public class User implements UserDetails {
@@ -23,11 +23,19 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-    private String username;
-    private String password;
-    private String email;
     private String firstName;
     private String lastName;
+    private String password;
+    private String email;
+
+
+    public User(String firstName, String lastName, String password, String email, UserRole userRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.userRole = userRole;
+    }
 
     @Builder.Default
     private UserRole userRole = UserRole.USER;
@@ -46,12 +54,12 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
