@@ -30,17 +30,15 @@ public class UserService implements UserDetailsService {
     @Autowired
     private ConfirmationTokenService confirmationTokenService;
 
+    private final static String USER_NOT_FOUND_MSG =
+            "user with email %s not found";
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-
-        if (optionalUser.isPresent()) {
-            return optionalUser.get();
-        }
-        else {
-            throw new UsernameNotFoundException(MessageFormat.format("User with username {0} cannot be found.", email));
-        }
+        return userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(
+                                String.format(USER_NOT_FOUND_MSG, email)));
     }
 
 
