@@ -1,6 +1,7 @@
 package com.example.disney_challenge.controllers;
 
 import com.example.disney_challenge.dtos.CharacterDTO;
+import com.example.disney_challenge.dtos.requests.CharacterRequest;
 import com.example.disney_challenge.models.CharacterEntity;
 import com.example.disney_challenge.models.MultimediaEntity;
 import com.example.disney_challenge.services.CharacterService;
@@ -21,14 +22,9 @@ public class CharacterController {
     private CharacterService characterService;
 
     @PostMapping("/characters/save")
-    public ResponseEntity<CharacterEntity> save(@RequestBody CharacterEntity characterEntity) {
-        CharacterEntity characterEntity1 = characterService.create(characterEntity);
-
-        try {
-            return ResponseEntity.created(new URI("/characters" + characterEntity1.getId())).body(characterEntity1);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+    public ResponseEntity<Object> save(@RequestBody CharacterRequest characterRequest) {
+         characterService.createCharacter(characterRequest);
+         return new ResponseEntity<>("ok",HttpStatus.OK);
     }
 
     @GetMapping("/characters/details")

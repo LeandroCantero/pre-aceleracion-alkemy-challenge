@@ -1,6 +1,7 @@
 package com.example.disney_challenge.controllers;
 
 import com.example.disney_challenge.dtos.MultimediaDTO;
+import com.example.disney_challenge.dtos.requests.MultimediaRequest;
 import com.example.disney_challenge.models.MultimediaEntity;
 import com.example.disney_challenge.services.MultimediaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,9 @@ public class MultimediaController {
     MultimediaService multimediaService;
 
     @PostMapping("/multimedia/save")
-    public ResponseEntity<MultimediaEntity> save(@RequestBody MultimediaEntity multimediaEntity) {
-        MultimediaEntity multimediaEntity1 = multimediaService.create(multimediaEntity);
-
-        try {
-            return ResponseEntity.created(new URI("/multimedia" + multimediaEntity1.getId())).body(multimediaEntity1);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+    public ResponseEntity<Object> save(@RequestBody MultimediaRequest multimediaRequest) {
+        MultimediaEntity multimediaEntity1 = multimediaService.createMultimedia(multimediaRequest);
+        return new ResponseEntity<Object>("ok",HttpStatus.OK);
     }
 
     @GetMapping("/multimedia/details")

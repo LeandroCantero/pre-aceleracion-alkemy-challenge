@@ -30,6 +30,9 @@ public class CharacterEntity {
     private Integer weight;
     private String history;
 
+    public CharacterEntity() {
+
+    }
 
     public CharacterEntity(Long id, String image, String name, Integer age, Integer weight, String history) {
         this.id = id;
@@ -40,9 +43,7 @@ public class CharacterEntity {
         this.history = history;
     }
 
-    public CharacterEntity() {
 
-    }
 
     public Long getId() {
         return id;
@@ -98,5 +99,9 @@ public class CharacterEntity {
 
     public Set<MultimediaEntity> getMultimedia() {
         return multimedia;
+    }
+
+    public void setMultimedia(Set<MultimediaEntity> multimedia) {
+        this.multimedia = multimedia;
     }
 }

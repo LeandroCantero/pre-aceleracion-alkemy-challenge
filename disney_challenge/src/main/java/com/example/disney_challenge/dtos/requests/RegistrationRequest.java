@@ -1,4 +1,4 @@
-package com.example.disney_challenge.util;
+package com.example.disney_challenge.dtos.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

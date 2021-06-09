@@ -1,6 +1,7 @@
 package com.example.disney_challenge.services;
 
 import com.example.disney_challenge.dtos.CharacterDTO;
+import com.example.disney_challenge.dtos.requests.CharacterRequest;
 import com.example.disney_challenge.models.CharacterEntity;
 import com.example.disney_challenge.models.MultimediaEntity;
 import com.example.disney_challenge.repositories.CharacterRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,8 +22,14 @@ public class CharacterService implements ICharacterService {
     private CharacterRepository characterRepository;
 
     @Override
-    public CharacterEntity create(CharacterEntity characterEntity) {
-        return characterRepository.save(characterEntity);
+    public CharacterEntity createCharacter(CharacterRequest characterRequest) {
+        var character = new CharacterEntity();
+        character.setName(characterRequest.getName());
+        character.setAge(characterRequest.getAge());
+        character.setImage(characterRequest.getImage());
+        character.setWeight(characterRequest.getWeight());
+        character.setHistory(characterRequest.getHistory());
+        return characterRepository.save(character);
     }
 
     @Override
@@ -98,6 +106,18 @@ public class CharacterService implements ICharacterService {
         }
         return characterRepository.findAll();
     }
+
+    @Override
+    public Set<CharacterEntity> getCharactersById(List<Long> charactersId) {
+        return  charactersId
+                .stream()
+                .map(id -> characterRepository.findById(id))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toSet());
+
+    }
+
 
     /*public List<CharacterEntity> findByFilters2(String name, Integer age, Integer weight, MultimediaEntity multimedia){
         if (name != null || age != null || weight != null || multimedia != null){

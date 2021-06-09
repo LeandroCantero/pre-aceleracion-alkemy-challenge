@@ -86,6 +86,10 @@ public class MultimediaEntity {
         return characters;
     }
 
+    public void setCharacters(Set<CharacterEntity> characters) {
+        this.characters = characters;
+    }
+
     public void setGenre(GenreEntity genre) {
         this.genre = genre;
     }
@@ -93,5 +97,6 @@ public class MultimediaEntity {
     public GenreEntity getGenre() {
         return genre;
     }
+
 
 }

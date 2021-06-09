@@ -1,6 +1,7 @@
 package com.example.disney_challenge.services;
 
 import com.example.disney_challenge.dtos.MultimediaDTO;
+import com.example.disney_challenge.dtos.requests.MultimediaRequest;
 import com.example.disney_challenge.models.MultimediaEntity;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface IMultimediaService {
 
     MultimediaDTO findById(Long id);
 
-    MultimediaEntity create(MultimediaEntity multimediaEntity);
+    MultimediaEntity createMultimedia(MultimediaRequest multimediaRequest);
 
     void deleteMultimedia(Long id);
 

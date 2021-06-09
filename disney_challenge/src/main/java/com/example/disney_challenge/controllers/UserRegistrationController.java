@@ -1,7 +1,7 @@
 package com.example.disney_challenge.controllers;
 
 import com.example.disney_challenge.services.RegistrationService;
-import com.example.disney_challenge.util.RegistrationRequest;
+import com.example.disney_challenge.dtos.requests.RegistrationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

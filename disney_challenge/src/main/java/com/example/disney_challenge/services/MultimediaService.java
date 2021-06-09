@@ -1,6 +1,9 @@
 package com.example.disney_challenge.services;
 
 import com.example.disney_challenge.dtos.MultimediaDTO;
+import com.example.disney_challenge.dtos.requests.MultimediaRequest;
+import com.example.disney_challenge.models.CharacterEntity;
+import com.example.disney_challenge.models.GenreEntity;
 import com.example.disney_challenge.models.MultimediaEntity;
 import com.example.disney_challenge.repositories.MultimediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +22,12 @@ public class MultimediaService implements IMultimediaService {
 
     @Autowired
     private MultimediaRepository multimediaRepository;
+
+    @Autowired
+    private CharacterService characterService;
+
+    @Autowired
+    private GenreService genreService;
 
     @Override
     public List<MultimediaDTO> getMultimedia() {
@@ -44,8 +54,22 @@ public class MultimediaService implements IMultimediaService {
     }
 
     @Override
-    public MultimediaEntity create(MultimediaEntity multimediaEntity) {
-        return multimediaRepository.save(multimediaEntity);
+    public MultimediaEntity createMultimedia(MultimediaRequest multimediaRequest) {
+        var multimedia = new MultimediaEntity();
+        multimedia.setTitle(multimediaRequest.getTitle());
+        multimedia.setImage(multimediaRequest.getImage());
+        multimedia.setRating(multimediaRequest.getRating());
+        multimedia.setCreation_date(multimediaRequest.getCreation_date());
+
+        Set<CharacterEntity> characters =
+                characterService.getCharactersById(multimediaRequest.getCharacterEntityList());
+        multimedia.setCharacters(characters);
+
+//        Set<GenreEntity> genres =
+//                genreService.getGenresById(multimediaRequest.getGenreEntityList());
+//        multimedia.setGenre(genres);
+
+        return multimediaRepository.save(multimedia);
     }
 
     @Override

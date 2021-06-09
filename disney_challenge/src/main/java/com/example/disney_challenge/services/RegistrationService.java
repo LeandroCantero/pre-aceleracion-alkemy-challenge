@@ -3,7 +3,7 @@ package com.example.disney_challenge.services;
 import com.example.disney_challenge.enums.UserRole;
 import com.example.disney_challenge.models.ConfirmationToken;
 import com.example.disney_challenge.models.User;
-import com.example.disney_challenge.util.RegistrationRequest;
+import com.example.disney_challenge.dtos.requests.RegistrationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +27,7 @@ public class RegistrationService {
         String token = userService.singUp(
                 new User(request.getFirstName(),
                         request.getLastName(),
-                        request.getLastName(),
+                        request.getEmail(),
                         request.getPassword(),
                         UserRole.USER
                 )
