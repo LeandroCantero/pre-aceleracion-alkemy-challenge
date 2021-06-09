@@ -3,6 +3,7 @@ package com.example.disney_challenge.services;
 import com.example.disney_challenge.models.User;
 import com.example.disney_challenge.repositories.UserRepository;
 import com.example.disney_challenge.models.ConfirmationToken;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class UserService implements UserDetailsService {
 
     @Autowired
@@ -31,7 +33,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        final Optional<User> optionalUser = userRepository.findByEmail(email);
+        Optional<User> optionalUser = userRepository.findByEmail(email);
 
         if (optionalUser.isPresent()) {
             return optionalUser.get();
@@ -66,11 +68,11 @@ public class UserService implements UserDetailsService {
         );
 
         confirmationTokenService.saveConfirmationToken(confirmationToken);
-        //TODO: SEND EMAIL
 
         return token;
     }
 
-    public void enableAppUser(String email) {
+    public int enableUser(String email) {
+        return userRepository.enableUser(email);
     }
 }

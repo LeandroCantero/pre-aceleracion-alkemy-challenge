@@ -1,6 +1,6 @@
 package com.example.disney_challenge.controllers;
 
-import com.example.disney_challenge.auth.AuthRequest;
+import com.example.disney_challenge.dtos.requests.AuthRequest;
 import com.example.disney_challenge.auth.AuthResponse;
 import com.example.disney_challenge.models.User;
 import com.example.disney_challenge.services.UserService;
@@ -40,14 +40,14 @@ public class AuthController {
     public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest authRequest) throws Exception{
         try{
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
             );
         } catch (BadCredentialsException e){
             throw new Exception("Incorrect username or password",e );
         }
 
         final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authRequest.getUsername());
+                .loadUserByUsername(authRequest.getEmail());
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
