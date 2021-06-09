@@ -5,6 +5,7 @@ import com.example.disney_challenge.dtos.requests.CharacterRequest;
 import com.example.disney_challenge.models.CharacterEntity;
 import com.example.disney_challenge.models.MultimediaEntity;
 import com.example.disney_challenge.repositories.CharacterRepository;
+import com.example.disney_challenge.services.Interfaces.ICharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;

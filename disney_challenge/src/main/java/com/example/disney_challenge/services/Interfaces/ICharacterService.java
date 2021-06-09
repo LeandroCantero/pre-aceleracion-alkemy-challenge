@@ -1,4 +1,4 @@
-package com.example.disney_challenge.services;
+package com.example.disney_challenge.services.Interfaces;
 
 import com.example.disney_challenge.dtos.CharacterDTO;
 import com.example.disney_challenge.dtos.requests.CharacterRequest;

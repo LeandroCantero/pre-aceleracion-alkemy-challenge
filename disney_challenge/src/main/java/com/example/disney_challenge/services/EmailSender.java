@@ -1,5 +1,6 @@
 package com.example.disney_challenge.services;
 
+import com.example.disney_challenge.services.Interfaces.IEmailService;
 import lombok.AllArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,7 +14,7 @@ import org.slf4j.Logger;
 
 @Service
 @AllArgsConstructor
-public class EmailSender implements IEmailService{
+public class EmailSender implements IEmailService {
 
     private final static Logger LOGGER = LoggerFactory
             .getLogger(EmailSender.class);

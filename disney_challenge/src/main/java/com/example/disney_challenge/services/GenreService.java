@@ -2,6 +2,7 @@ package com.example.disney_challenge.services;
 
 import com.example.disney_challenge.models.GenreEntity;
 import com.example.disney_challenge.repositories.GenreRepository;
+import com.example.disney_challenge.services.Interfaces.IGenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
