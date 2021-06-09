@@ -3,6 +3,7 @@ package com.example.disney_challenge.services;
 import com.example.disney_challenge.dtos.MultimediaDTO;
 import com.example.disney_challenge.dtos.requests.MultimediaRequest;
 import com.example.disney_challenge.models.CharacterEntity;
+import com.example.disney_challenge.models.GenreEntity;
 import com.example.disney_challenge.models.MultimediaEntity;
 import com.example.disney_challenge.repositories.MultimediaRepository;
 import com.example.disney_challenge.services.Interfaces.IMultimediaService;
@@ -62,11 +63,11 @@ public class MultimediaService implements IMultimediaService {
         multimedia.setCreation_date(multimediaRequest.getCreation_date());
 
         Set<CharacterEntity> characters =
-                characterService.getCharactersById(multimediaRequest.getCharacterEntityList());
+                characterService.getCharactersById(multimediaRequest.getCharacters());
         multimedia.setCharacters(characters);
 
 //        Set<GenreEntity> genres =
-//                genreService.getGenresById(multimediaRequest.getGenreEntityList());
+//                genreService.getGenresById(multimediaRequest.getGenre());
 //        multimedia.setGenre(genres);
 
         return multimediaRepository.save(multimedia);
