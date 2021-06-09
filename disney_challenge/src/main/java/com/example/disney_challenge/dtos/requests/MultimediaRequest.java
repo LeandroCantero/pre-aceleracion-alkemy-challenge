@@ -11,10 +11,10 @@ import java.util.List;
 @Value
 @AllArgsConstructor
 public class MultimediaRequest {
-    private String image;
     private String title;
-    private LocalDate creation_date;
+    private String image;
     private Float rating;
+    private LocalDate creation_date;
     private List<Long> genreEntityList;
     private List<Long> characterEntityList;
 

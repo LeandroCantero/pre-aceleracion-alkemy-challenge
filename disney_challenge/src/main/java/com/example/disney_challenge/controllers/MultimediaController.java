@@ -22,7 +22,7 @@ public class MultimediaController {
 
     @PostMapping("/multimedia/save")
     public ResponseEntity<Object> save(@RequestBody MultimediaRequest multimediaRequest) {
-        MultimediaEntity multimediaEntity1 = multimediaService.createMultimedia(multimediaRequest);
+        var multimedia = multimediaService.createMultimedia(multimediaRequest);
         return new ResponseEntity<Object>("ok",HttpStatus.OK);
     }
 
