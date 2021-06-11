@@ -20,12 +20,10 @@ public class GenreService implements IGenreService {
     private GenreRepository genreRepository;
 
     @Override
-    public Set<GenreEntity> getGenresById(List<Long> genresId) {
-        return  genresId
-                .stream()
-                .map(id -> genreRepository.findById(id))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toSet());
+    public GenreEntity getGenreById(Long id) {
+        var genreId = genreRepository.getGenreEntityById(id);
+        return genreId;
     }
+
+
 }

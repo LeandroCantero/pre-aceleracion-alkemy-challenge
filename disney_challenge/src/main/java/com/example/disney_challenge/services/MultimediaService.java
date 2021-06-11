@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -66,9 +67,9 @@ public class MultimediaService implements IMultimediaService {
                 characterService.getCharactersById(multimediaRequest.getCharacters());
         multimedia.setCharacters(characters);
 
-//        Set<GenreEntity> genres =
-//                genreService.getGenresById(multimediaRequest.getGenre());
-//        multimedia.setGenre(genres);
+        GenreEntity genre =
+                genreService.getGenreById(multimediaRequest.getGenre());
+        multimedia.setGenre(genre);
 
         return multimediaRepository.save(multimedia);
     }

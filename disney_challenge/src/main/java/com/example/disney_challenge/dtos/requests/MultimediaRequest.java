@@ -15,7 +15,7 @@ public class MultimediaRequest {
     private String image;
     private Float rating;
     private LocalDate creation_date;
-    private GenreEntity genre;
+    private Long genre;
     private List<Long> characters;
 
 }
